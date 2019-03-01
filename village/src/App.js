@@ -37,10 +37,12 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+      <header>
         <nav>
           <NavLink to="/">Home</NavLink>
           <NavLink to="/smurf-form">Form</NavLink>
         </nav>
+      </header>
         <Route exact path="/" render={props => (
           <Smurfs {...props} deleteSmurf={this.deleteSmurf} smurfs={this.state.smurfs} />
         )}
