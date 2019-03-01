@@ -9,6 +9,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      error: '',
       smurfs: [],
     };
   }
@@ -17,21 +18,21 @@ class App extends Component {
     axios
       .get('http://localhost:3333/smurfs')
       .then(res => this.setState({ smurfs: res.data }))
-      .catch(err => console.log(err));
+      .catch(err => this.setState({ error: err.message }))
   }
 
   addSmurf = smurf => {
     axios
       .post('http://localhost:3333/smurfs', smurf)
       .then(res => this.setState({ smurfs: res.data}))
-      .catch(err => console.log(err))
+      .catch(err => this.setState({ error: err.message }))
   }
 
   deleteSmurf = id => {
     axios
       .delete(`http://localhost:3333/smurfs/${id}`)
       .then(res => this.setState({ smurfs: res.data}))
-      .catch(err => console.log(err));
+      .catch(err => this.setState({ error: err.message }))
   }
   
   render() {
@@ -43,6 +44,14 @@ class App extends Component {
           <NavLink to="/smurf-form">Form</NavLink>
         </nav>
       </header>
+      {
+        this.state.error.length > 0 ?
+        <div className="error">
+          <p>{this.state.error}</p>
+          <button onClick={() => this.setState({ error: '' })}>close</button>
+        </div> :
+        null
+      }
         <Route exact path="/" render={props => (
           <Smurfs {...props} deleteSmurf={this.deleteSmurf} smurfs={this.state.smurfs} />
         )}

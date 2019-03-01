@@ -28,7 +28,7 @@ header nav a {
   text-shadow: 0px 0px 5px #408CC0;
 }
 
-.Smurf {
+.Smurf, .error {
   background-color: #408CC0;
   border: 2px solid white;
   border-radius: 15px;
